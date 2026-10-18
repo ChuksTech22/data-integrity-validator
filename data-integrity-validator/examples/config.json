@@ -1,0 +1,50 @@
+{
+  "id_column": "contact_id",
+  "required_fields": [
+    "contact_id",
+    "last_name",
+    "email"
+  ],
+  "email_fields": [
+    "email"
+  ],
+  "numeric_ranges": {
+    "deal_amount": {
+      "min": 0,
+      "max": 1000000
+    }
+  },
+  "date_fields": {
+    "signup_date": "%Y-%m-%d"
+  },
+  "expected_types": {
+    "phone": "string"
+  },
+  "normalization": {
+    "strip_whitespace": true,
+    "casefold_fields": [
+      "email"
+    ],
+    "phone_fields": [
+      "phone"
+    ],
+    "numeric_fields": [
+      "deal_amount"
+    ],
+    "date_fields": [
+      "signup_date"
+    ],
+    "accepted_date_formats": [
+      "%Y-%m-%d",
+      "%m/%d/%Y"
+    ]
+  },
+  "allowed_values": {
+    "lifecycle_stage": [
+      "lead",
+      "opportunity",
+      "customer",
+      "subscriber"
+    ]
+  }
+}

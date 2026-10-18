@@ -1,0 +1,32 @@
+contact_id,first_name,last_name,email,phone,deal_amount,signup_date,lifecycle_stage,import_batch
+C001,Amara,Okoye,amara.okoye@example.com,+2348035550001,870.00,2023-02-02,customer,B-2026-09
+C002,Tunde,Adeyemi,tunde.adeyemi@example.org,+2348035550002,1240.00,2023-03-03,opportunity,B-2026-09
+C003,Chidi,Eze,Chidi.Eze@Example.com,+2348035550003,1610.00,2023-04-04,subscriber,B-2026-09
+C004,Ngozi,Balogun,ngozi.balogun@example.com,+2348035550004,1980.00,2023-05-05,lead,B-2026-09
+C006,Segun,Bello,segun.bello@example.com,+2348035550006,2720.00,2023-07-07,opportunity,B-2026-09
+C007,Zainab,Lawal,zainab.lawal@example.com,+2348035550007,3090.00,2023-08-08,subscriber,B-2026-09
+C008,Emeka,Obi,emeka.obi@example.com,+2348035550008,3460.00,2023-09-09,customer,B-2026-09
+C009,Kemi,Alade,kemi.alade@example.com,+2348035550009,450.00,2023-10-10,customer,B-2026-09
+C010,Bola,Anyanwu,bola.anyanwu@example.com,+2348035550010,4200.00,2023-11-11,opportunity,B-2026-09
+C012,Femi,Okafor ,femi.okafor@example.com,+2348035550012,4940.00,2023-01-13,lead,B-2026-09
+C013,Halima,Sani,halima.sani@example.com,+2348035550013,5310.00,2023-02-14,customer,B-2026-09
+C014,Obinna,Ibe,obinna.ibe@example.com,+2348035550014,5680.00,2023-03-15,opportunity,B-2026-09
+C015,Sade,Coker,sade.coker@example.com,+2348035550015,6050.00,2023-04-16,subscriber,B-2026-09
+C016,Yusuf,Danjuma,yusuf.danjuma@example.com,+234 803 555 0016,6420.00,2023-05-17,lead,B-2026-09
+C017,Nneka,Eke,nneka.eke@example.com,+2348035550017,6790.00,2023-06-18,customer,B-2026-09
+C018,Dayo,Fashola,dayo.fashola@example.com,+2348035550018,TBD,2023-07-19,opportunity,B-2026-09
+C020,Kunle,Hassan,,+2348035550020,7900.00,2023-09-21,lead,B-2026-09
+C021,Ruth,Ibrahim,ruth.ibrahim@example.com,+2348035550021,8270.00,2023-10-22,customer,B-2026-09
+C022,Musa,Jegede,musa.jegede@example.com,+2348035550022,8640.00,2023-11-23,opportunity,B-2026-09
+C023,Tolu,Kalu,tolu.kalu@example,+2348035550023,9010.00,2023-12-24,subscriber,B-2026-09
+C024,Ebere,Ladipo,ebere.ladipo@example.com,+2348035550024,9380.00,2023-01-25,lead,B-2026-09
+C025,Bayo,Mba,bayo.mba@example.com,+2348035550025,9750.00,03/15/2024,customer,B-2026-09
+C026,Chiamaka,Nnamdi,chiamaka.nnamdi@example.com,+2348035550026,10120.00,2023-03-27,opportunity,B-2026-09
+C027,Idris,Oyelaran,idris.oyelaran@example.com,+2348035550027,-250.00,2023-04-01,subscriber,B-2026-09
+C028,Folake,Peters,folake.peters@example.com,+2348035550028,10860.00,2023-05-02,lead,B-2026-09
+C029,Gbenga,Quadri,gbenga.quadri@example.com,+2348035550029,11230.00,2023-06-03,customer,B-2026-09
+C030,Linda,Rotimi,linda.rotimi@example.com,+2348035550030,11600.00,2023-07-04,lead,B-2026-09
+C007,Zainab,Lawal,zainab.lawal@example.com,+2348035550007,3090.00,2023-08-08,subscriber,B-2026-09
+C014,Obinna,Ibe,obinna.ibe@example.net,+2348035550014,5680.00,2023-03-15,opportunity,B-2026-09
+C031,Jide,Sowande,jide.sowande@example.com,+2348035550031,1900.00,2024-01-20,lead,B-2026-09
+C032,Emeka,Obi,emeka.obi@example.com,+2348035550008,3460.00,2023-09-09,customer,B-2026-09

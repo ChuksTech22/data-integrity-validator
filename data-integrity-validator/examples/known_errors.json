@@ -1,0 +1,201 @@
+{
+  "description": "Hand-written answer key for examples/source.csv vs examples/destination.csv. Every injected error is listed; the test suite asserts the validator reports exactly these issues.",
+  "expected_issues": [
+    {
+      "issue_type": "missing_column",
+      "record_id": "",
+      "field": "company",
+      "description": "Column dropped during migration",
+      "category": "schema: missing column"
+    },
+    {
+      "issue_type": "unexpected_column",
+      "record_id": "",
+      "field": "import_batch",
+      "description": "Column added by the import tool",
+      "category": "schema: unexpected column"
+    },
+    {
+      "issue_type": "type_mismatch",
+      "record_id": "",
+      "field": "deal_amount",
+      "description": "'TBD' turns a numeric column into text",
+      "category": "schema: incompatible type"
+    },
+    {
+      "issue_type": "missing_record",
+      "record_id": "C005",
+      "field": "contact_id",
+      "description": "Record dropped",
+      "category": "missing contact"
+    },
+    {
+      "issue_type": "missing_record",
+      "record_id": "C011",
+      "field": "contact_id",
+      "description": "Record dropped",
+      "category": "missing contact"
+    },
+    {
+      "issue_type": "missing_record",
+      "record_id": "C019",
+      "field": "contact_id",
+      "description": "Record dropped",
+      "category": "missing contact"
+    },
+    {
+      "issue_type": "unexpected_record",
+      "record_id": "C031",
+      "field": "contact_id",
+      "description": "Record that does not exist in the source",
+      "category": "unexpected destination record"
+    },
+    {
+      "issue_type": "unexpected_record",
+      "record_id": "C032",
+      "field": "contact_id",
+      "description": "Copy of C008 created under a new id",
+      "category": "unexpected destination record"
+    },
+    {
+      "issue_type": "duplicate_record",
+      "record_id": "C032",
+      "field": "*",
+      "description": "C032 has identical content to C008",
+      "category": "duplicate record (new key)"
+    },
+    {
+      "issue_type": "duplicate_id",
+      "record_id": "C007",
+      "field": "contact_id",
+      "description": "Identical duplicate row",
+      "category": "duplicate identifier"
+    },
+    {
+      "issue_type": "duplicate_id",
+      "record_id": "C014",
+      "field": "contact_id",
+      "description": "Duplicate row with conflicting email",
+      "category": "duplicate identifier"
+    },
+    {
+      "issue_type": "value_mismatch",
+      "record_id": "C014",
+      "field": "email",
+      "description": "Second C014 row has a different email",
+      "category": "changed field value"
+    },
+    {
+      "issue_type": "value_mismatch",
+      "record_id": "C002",
+      "field": "email",
+      "description": "Email domain changed .com -> .org",
+      "category": "changed field value"
+    },
+    {
+      "issue_type": "formatting_difference",
+      "record_id": "C003",
+      "field": "email",
+      "description": "Case-only difference",
+      "category": "harmless formatting difference"
+    },
+    {
+      "issue_type": "value_mismatch",
+      "record_id": "C009",
+      "field": "deal_amount",
+      "description": "4500.00 became 450.00 (decimal shift)",
+      "category": "changed field value"
+    },
+    {
+      "issue_type": "whitespace_difference",
+      "record_id": "C012",
+      "field": "last_name",
+      "description": "Trailing space",
+      "category": "harmless formatting difference"
+    },
+    {
+      "issue_type": "formatting_difference",
+      "record_id": "C016",
+      "field": "phone",
+      "description": "Same digits, different formatting",
+      "category": "harmless formatting difference"
+    },
+    {
+      "issue_type": "value_mismatch",
+      "record_id": "C018",
+      "field": "deal_amount",
+      "description": "Number replaced by text",
+      "category": "changed field value"
+    },
+    {
+      "issue_type": "rule_not_numeric",
+      "record_id": "C018",
+      "field": "deal_amount",
+      "description": "Non-numeric in range-checked field",
+      "category": "rule violation"
+    },
+    {
+      "issue_type": "missing_value",
+      "record_id": "C020",
+      "field": "email",
+      "description": "Email blanked",
+      "category": "missing required field"
+    },
+    {
+      "issue_type": "rule_required_field",
+      "record_id": "C020",
+      "field": "email",
+      "description": "Required field empty",
+      "category": "missing required field"
+    },
+    {
+      "issue_type": "value_mismatch",
+      "record_id": "C023",
+      "field": "email",
+      "description": "Truncated email",
+      "category": "changed field value"
+    },
+    {
+      "issue_type": "rule_email_format",
+      "record_id": "C023",
+      "field": "email",
+      "description": "Invalid email format",
+      "category": "invalid email address"
+    },
+    {
+      "issue_type": "formatting_difference",
+      "record_id": "C025",
+      "field": "signup_date",
+      "description": "Same date, MM/DD/YYYY instead of ISO",
+      "category": "harmless formatting difference"
+    },
+    {
+      "issue_type": "rule_date_format",
+      "record_id": "C025",
+      "field": "signup_date",
+      "description": "Date not in required format",
+      "category": "rule violation"
+    },
+    {
+      "issue_type": "value_mismatch",
+      "record_id": "C027",
+      "field": "deal_amount",
+      "description": "Sign flipped 250.00 -> -250.00",
+      "category": "changed field value"
+    },
+    {
+      "issue_type": "rule_numeric_range",
+      "record_id": "C027",
+      "field": "deal_amount",
+      "description": "Negative amount outside allowed range",
+      "category": "rule violation"
+    },
+    {
+      "issue_type": "value_mismatch",
+      "record_id": "C030",
+      "field": "lifecycle_stage",
+      "description": "opportunity became lead",
+      "category": "changed field value"
+    }
+  ]
+}

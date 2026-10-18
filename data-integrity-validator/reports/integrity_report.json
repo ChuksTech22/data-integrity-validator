@@ -1,0 +1,560 @@
+{
+  "tool": {
+    "name": "data-integrity-validator",
+    "version": "1.0.0"
+  },
+  "inputs": {
+    "source": {
+      "path": "examples/source.csv",
+      "sha256": "f78b8bae1e2f7878e3125ea71bec2bcd51be70993694421aa9b9e5cf88ae6d9f",
+      "rows": 30,
+      "columns": [
+        "contact_id",
+        "first_name",
+        "last_name",
+        "email",
+        "phone",
+        "company",
+        "deal_amount",
+        "signup_date",
+        "lifecycle_stage"
+      ]
+    },
+    "destination": {
+      "path": "examples/destination.csv",
+      "sha256": "73fd22273e57f9dfac1296a9b773c2aa51d50b50c29dc0df7cba8ce6ae59aa23",
+      "rows": 31,
+      "columns": [
+        "contact_id",
+        "first_name",
+        "last_name",
+        "email",
+        "phone",
+        "deal_amount",
+        "signup_date",
+        "lifecycle_stage",
+        "import_batch"
+      ]
+    }
+  },
+  "configuration": {
+    "key_columns": [
+      "contact_id"
+    ],
+    "id_case_sensitive": true,
+    "ignore_columns": [],
+    "required_fields": [
+      "contact_id",
+      "last_name",
+      "email"
+    ],
+    "email_fields": [
+      "email"
+    ],
+    "numeric_ranges": {
+      "deal_amount": {
+        "min": "0",
+        "max": "1000000"
+      }
+    },
+    "date_fields": {
+      "signup_date": "%Y-%m-%d"
+    },
+    "allowed_values": {
+      "lifecycle_stage": [
+        "lead",
+        "opportunity",
+        "customer",
+        "subscriber"
+      ]
+    },
+    "expected_types": {
+      "phone": "string"
+    },
+    "normalization": {
+      "strip_whitespace": true,
+      "unicode_nfc": true,
+      "casefold_fields": [
+        "email"
+      ],
+      "phone_fields": [
+        "phone"
+      ],
+      "numeric_fields": [
+        "deal_amount"
+      ],
+      "date_fields": [
+        "signup_date"
+      ],
+      "accepted_date_formats": [
+        "%Y-%m-%d",
+        "%m/%d/%Y"
+      ],
+      "null_tokens": [],
+      "report_formatting_differences": true
+    },
+    "severity_overrides": {}
+  },
+  "summary": {
+    "records_checked": {
+      "source": 30,
+      "destination": 31
+    },
+    "unique_keys": {
+      "source": 30,
+      "destination": 29
+    },
+    "records_matched": 27,
+    "missing_in_destination": 3,
+    "unexpected_in_destination": 2,
+    "field_values_compared": 203,
+    "suppressed_formatting_differences": 0,
+    "issues_total": 28,
+    "issues_by_severity": {
+      "error": 20,
+      "warning": 5,
+      "info": 3
+    },
+    "issues_by_type": {
+      "duplicate_id": 2,
+      "duplicate_record": 1,
+      "formatting_difference": 3,
+      "missing_column": 1,
+      "missing_record": 3,
+      "missing_value": 1,
+      "rule_date_format": 1,
+      "rule_email_format": 1,
+      "rule_not_numeric": 1,
+      "rule_numeric_range": 1,
+      "rule_required_field": 1,
+      "type_mismatch": 1,
+      "unexpected_column": 1,
+      "unexpected_record": 2,
+      "value_mismatch": 7,
+      "whitespace_difference": 1
+    }
+  },
+  "notes": [],
+  "issues": [
+    {
+      "issue_id": "DIV-0001",
+      "severity": "error",
+      "issue_type": "missing_column",
+      "dataset": "destination",
+      "record_id": "",
+      "field": "company",
+      "expected": "column present",
+      "observed": "column absent",
+      "explanation": "Column 'company' exists in the source but not in the destination; its values cannot be verified.",
+      "normalization": "",
+      "suggested_action": "Check the field mapping in the migration tool and re-import the column, or confirm it was dropped on purpose.",
+      "source_line": null,
+      "destination_line": null
+    },
+    {
+      "issue_id": "DIV-0002",
+      "severity": "error",
+      "issue_type": "type_mismatch",
+      "dataset": "destination",
+      "record_id": "",
+      "field": "deal_amount",
+      "expected": "decimal",
+      "observed": "string",
+      "explanation": "Column 'deal_amount' is decimal in the source but string in the destination; non-conforming destination examples: ['TBD'].",
+      "normalization": "",
+      "suggested_action": "Find the non-conforming values in the column and correct them, or fix the field type in the destination.",
+      "source_line": null,
+      "destination_line": null
+    },
+    {
+      "issue_id": "DIV-0003",
+      "severity": "error",
+      "issue_type": "value_mismatch",
+      "dataset": "comparison",
+      "record_id": "C002",
+      "field": "email",
+      "expected": "tunde.adeyemi@example.com",
+      "observed": "tunde.adeyemi@example.org",
+      "explanation": "Value differs between source and destination.",
+      "normalization": "",
+      "suggested_action": "Compare the record in both systems, decide which value is correct, and fix the wrong side.",
+      "source_line": 3,
+      "destination_line": 3
+    },
+    {
+      "issue_id": "DIV-0004",
+      "severity": "error",
+      "issue_type": "missing_record",
+      "dataset": "comparison",
+      "record_id": "C005",
+      "field": "contact_id",
+      "expected": "record present in destination",
+      "observed": "record absent",
+      "explanation": "Record 'C005' exists in the source but was not found in the destination.",
+      "normalization": "",
+      "suggested_action": "Look for the record in the migration error log; re-import it or confirm it was excluded on purpose.",
+      "source_line": 6,
+      "destination_line": null
+    },
+    {
+      "issue_id": "DIV-0005",
+      "severity": "error",
+      "issue_type": "duplicate_id",
+      "dataset": "destination",
+      "record_id": "C007",
+      "field": "contact_id",
+      "expected": "1 occurrence (unique key)",
+      "observed": "2 occurrences",
+      "explanation": "Key appears 2 times (lines 7, 29); all occurrences are identical.",
+      "normalization": "",
+      "suggested_action": "Decide which row is authoritative, merge or delete the others, and check whether the import ran twice.",
+      "source_line": null,
+      "destination_line": 7
+    },
+    {
+      "issue_id": "DIV-0006",
+      "severity": "error",
+      "issue_type": "value_mismatch",
+      "dataset": "comparison",
+      "record_id": "C009",
+      "field": "deal_amount",
+      "expected": "4500.00",
+      "observed": "450.00",
+      "explanation": "Value differs between source and destination.",
+      "normalization": "",
+      "suggested_action": "Compare the record in both systems, decide which value is correct, and fix the wrong side.",
+      "source_line": 10,
+      "destination_line": 9
+    },
+    {
+      "issue_id": "DIV-0007",
+      "severity": "error",
+      "issue_type": "missing_record",
+      "dataset": "comparison",
+      "record_id": "C011",
+      "field": "contact_id",
+      "expected": "record present in destination",
+      "observed": "record absent",
+      "explanation": "Record 'C011' exists in the source but was not found in the destination.",
+      "normalization": "",
+      "suggested_action": "Look for the record in the migration error log; re-import it or confirm it was excluded on purpose.",
+      "source_line": 12,
+      "destination_line": null
+    },
+    {
+      "issue_id": "DIV-0008",
+      "severity": "error",
+      "issue_type": "duplicate_id",
+      "dataset": "destination",
+      "record_id": "C014",
+      "field": "contact_id",
+      "expected": "1 occurrence (unique key)",
+      "observed": "2 occurrences",
+      "explanation": "Key appears 2 times (lines 13, 30); occurrences contain conflicting values.",
+      "normalization": "",
+      "suggested_action": "Decide which row is authoritative, merge or delete the others, and check whether the import ran twice.",
+      "source_line": null,
+      "destination_line": 13
+    },
+    {
+      "issue_id": "DIV-0009",
+      "severity": "error",
+      "issue_type": "value_mismatch",
+      "dataset": "comparison",
+      "record_id": "C014",
+      "field": "email",
+      "expected": "obinna.ibe@example.com",
+      "observed": "obinna.ibe@example.net",
+      "explanation": "Value differs between source and destination.",
+      "normalization": "",
+      "suggested_action": "Compare the record in both systems, decide which value is correct, and fix the wrong side.",
+      "source_line": 15,
+      "destination_line": 30
+    },
+    {
+      "issue_id": "DIV-0010",
+      "severity": "error",
+      "issue_type": "rule_not_numeric",
+      "dataset": "destination",
+      "record_id": "C018",
+      "field": "deal_amount",
+      "expected": "numeric value",
+      "observed": "TBD",
+      "explanation": "'TBD' is not numeric, so the range check cannot be applied.",
+      "normalization": "",
+      "suggested_action": "Replace the non-numeric text with a valid number taken from the source.",
+      "source_line": null,
+      "destination_line": 17
+    },
+    {
+      "issue_id": "DIV-0011",
+      "severity": "error",
+      "issue_type": "value_mismatch",
+      "dataset": "comparison",
+      "record_id": "C018",
+      "field": "deal_amount",
+      "expected": "7160.00",
+      "observed": "TBD",
+      "explanation": "Value differs between source and destination.",
+      "normalization": "",
+      "suggested_action": "Compare the record in both systems, decide which value is correct, and fix the wrong side.",
+      "source_line": 19,
+      "destination_line": 17
+    },
+    {
+      "issue_id": "DIV-0012",
+      "severity": "error",
+      "issue_type": "missing_record",
+      "dataset": "comparison",
+      "record_id": "C019",
+      "field": "contact_id",
+      "expected": "record present in destination",
+      "observed": "record absent",
+      "explanation": "Record 'C019' exists in the source but was not found in the destination.",
+      "normalization": "",
+      "suggested_action": "Look for the record in the migration error log; re-import it or confirm it was excluded on purpose.",
+      "source_line": 20,
+      "destination_line": null
+    },
+    {
+      "issue_id": "DIV-0013",
+      "severity": "error",
+      "issue_type": "missing_value",
+      "dataset": "comparison",
+      "record_id": "C020",
+      "field": "email",
+      "expected": "kunle.hassan@example.com",
+      "observed": "",
+      "explanation": "Value present in source is empty in destination.",
+      "normalization": "",
+      "suggested_action": "Check the field mapping and import log, then restore the value from the source.",
+      "source_line": 21,
+      "destination_line": 18
+    },
+    {
+      "issue_id": "DIV-0014",
+      "severity": "error",
+      "issue_type": "rule_required_field",
+      "dataset": "destination",
+      "record_id": "C020",
+      "field": "email",
+      "expected": "non-empty value",
+      "observed": "",
+      "explanation": "Required field 'email' is empty.",
+      "normalization": "",
+      "suggested_action": "Populate the required field or investigate why the value was lost.",
+      "source_line": null,
+      "destination_line": 18
+    },
+    {
+      "issue_id": "DIV-0015",
+      "severity": "error",
+      "issue_type": "rule_email_format",
+      "dataset": "destination",
+      "record_id": "C023",
+      "field": "email",
+      "expected": "valid email address",
+      "observed": "tolu.kalu@example",
+      "explanation": "'tolu.kalu@example' is not a well-formed email address.",
+      "normalization": "",
+      "suggested_action": "Correct the email address from the source record or from the contact owner.",
+      "source_line": null,
+      "destination_line": 21
+    },
+    {
+      "issue_id": "DIV-0016",
+      "severity": "error",
+      "issue_type": "value_mismatch",
+      "dataset": "comparison",
+      "record_id": "C023",
+      "field": "email",
+      "expected": "tolu.kalu@example.com",
+      "observed": "tolu.kalu@example",
+      "explanation": "Value differs between source and destination.",
+      "normalization": "",
+      "suggested_action": "Compare the record in both systems, decide which value is correct, and fix the wrong side.",
+      "source_line": 24,
+      "destination_line": 21
+    },
+    {
+      "issue_id": "DIV-0017",
+      "severity": "error",
+      "issue_type": "rule_date_format",
+      "dataset": "destination",
+      "record_id": "C025",
+      "field": "signup_date",
+      "expected": "date in format %Y-%m-%d",
+      "observed": "03/15/2024",
+      "explanation": "'03/15/2024' does not match the required date format %Y-%m-%d (or is not a real date).",
+      "normalization": "",
+      "suggested_action": "Convert the date to the required format and double-check the day/month order.",
+      "source_line": null,
+      "destination_line": 23
+    },
+    {
+      "issue_id": "DIV-0018",
+      "severity": "error",
+      "issue_type": "rule_numeric_range",
+      "dataset": "destination",
+      "record_id": "C027",
+      "field": "deal_amount",
+      "expected": "value between 0 to 1000000",
+      "observed": "-250.00",
+      "explanation": "-250.00 is outside the allowed range (0 to 1000000).",
+      "normalization": "",
+      "suggested_action": "Verify the value against the source; look for sign or decimal-place errors.",
+      "source_line": null,
+      "destination_line": 25
+    },
+    {
+      "issue_id": "DIV-0019",
+      "severity": "error",
+      "issue_type": "value_mismatch",
+      "dataset": "comparison",
+      "record_id": "C027",
+      "field": "deal_amount",
+      "expected": "250.00",
+      "observed": "-250.00",
+      "explanation": "Value differs between source and destination.",
+      "normalization": "",
+      "suggested_action": "Compare the record in both systems, decide which value is correct, and fix the wrong side.",
+      "source_line": 28,
+      "destination_line": 25
+    },
+    {
+      "issue_id": "DIV-0020",
+      "severity": "error",
+      "issue_type": "value_mismatch",
+      "dataset": "comparison",
+      "record_id": "C030",
+      "field": "lifecycle_stage",
+      "expected": "opportunity",
+      "observed": "lead",
+      "explanation": "Value differs between source and destination.",
+      "normalization": "",
+      "suggested_action": "Compare the record in both systems, decide which value is correct, and fix the wrong side.",
+      "source_line": 31,
+      "destination_line": 28
+    },
+    {
+      "issue_id": "DIV-0021",
+      "severity": "warning",
+      "issue_type": "unexpected_column",
+      "dataset": "destination",
+      "record_id": "",
+      "field": "import_batch",
+      "expected": "column absent",
+      "observed": "column present",
+      "explanation": "Column 'import_batch' exists in the destination but not in the source.",
+      "normalization": "",
+      "suggested_action": "Confirm the column is intentional (for example import metadata); otherwise remove it or add it to ignore_columns.",
+      "source_line": null,
+      "destination_line": null
+    },
+    {
+      "issue_id": "DIV-0022",
+      "severity": "warning",
+      "issue_type": "whitespace_difference",
+      "dataset": "comparison",
+      "record_id": "C012",
+      "field": "last_name",
+      "expected": "Okafor",
+      "observed": "Okafor ",
+      "explanation": "Values differ only in whitespace: source 'Okafor' vs destination 'Okafor '.",
+      "normalization": "whitespace",
+      "suggested_action": "Trim the whitespace in the destination (or enable cleanup in the import) to avoid failed lookups later.",
+      "source_line": 13,
+      "destination_line": 11
+    },
+    {
+      "issue_id": "DIV-0023",
+      "severity": "warning",
+      "issue_type": "unexpected_record",
+      "dataset": "comparison",
+      "record_id": "C031",
+      "field": "contact_id",
+      "expected": "record absent",
+      "observed": "record present",
+      "explanation": "Record 'C031' exists in the destination but not in the source.",
+      "normalization": "",
+      "suggested_action": "Trace where the record came from; remove it if it should not exist, or add it to the source if it should.",
+      "source_line": null,
+      "destination_line": 31
+    },
+    {
+      "issue_id": "DIV-0024",
+      "severity": "warning",
+      "issue_type": "duplicate_record",
+      "dataset": "destination",
+      "record_id": "C032",
+      "field": "*",
+      "expected": "unique record content",
+      "observed": "identical to record C008",
+      "explanation": "All non-key fields match record 'C008' (line 8); possible duplicate created under a new key.",
+      "normalization": "",
+      "suggested_action": "Review both records; merge or delete the copy if the import created it.",
+      "source_line": null,
+      "destination_line": 32
+    },
+    {
+      "issue_id": "DIV-0025",
+      "severity": "warning",
+      "issue_type": "unexpected_record",
+      "dataset": "comparison",
+      "record_id": "C032",
+      "field": "contact_id",
+      "expected": "record absent",
+      "observed": "record present",
+      "explanation": "Record 'C032' exists in the destination but not in the source.",
+      "normalization": "",
+      "suggested_action": "Trace where the record came from; remove it if it should not exist, or add it to the source if it should.",
+      "source_line": null,
+      "destination_line": 32
+    },
+    {
+      "issue_id": "DIV-0026",
+      "severity": "info",
+      "issue_type": "formatting_difference",
+      "dataset": "comparison",
+      "record_id": "C003",
+      "field": "email",
+      "expected": "chidi.eze@example.com",
+      "observed": "Chidi.Eze@Example.com",
+      "explanation": "Values are equivalent after 'casefold' normalization but formatted differently: 'chidi.eze@example.com' vs 'Chidi.Eze@Example.com'. Without that normalization this would be a value mismatch.",
+      "normalization": "casefold",
+      "suggested_action": "Usually no action; standardize the format only if downstream systems are format-sensitive.",
+      "source_line": 4,
+      "destination_line": 4
+    },
+    {
+      "issue_id": "DIV-0027",
+      "severity": "info",
+      "issue_type": "formatting_difference",
+      "dataset": "comparison",
+      "record_id": "C016",
+      "field": "phone",
+      "expected": "+2348035550016",
+      "observed": "+234 803 555 0016",
+      "explanation": "Values are equivalent after 'phone_digits' normalization but formatted differently: '+2348035550016' vs '+234 803 555 0016'. Without that normalization this would be a value mismatch.",
+      "normalization": "phone_digits",
+      "suggested_action": "Usually no action; standardize the format only if downstream systems are format-sensitive.",
+      "source_line": 17,
+      "destination_line": 15
+    },
+    {
+      "issue_id": "DIV-0028",
+      "severity": "info",
+      "issue_type": "formatting_difference",
+      "dataset": "comparison",
+      "record_id": "C025",
+      "field": "signup_date",
+      "expected": "2024-03-15",
+      "observed": "03/15/2024",
+      "explanation": "Values are equivalent after 'date_value' normalization but formatted differently: '2024-03-15' vs '03/15/2024'. Without that normalization this would be a value mismatch.",
+      "normalization": "date_value",
+      "suggested_action": "Usually no action; standardize the format only if downstream systems are format-sensitive.",
+      "source_line": 26,
+      "destination_line": 23
+    }
+  ]
+}
